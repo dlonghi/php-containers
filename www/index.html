@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>php</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+		* {
+		  margin: 0;
+		  padding: 0
+		}
+		html { box-sizing: border-box; }
+		body {
+		  font-family: "Roboto", sans-serif;
+      min-height:100vh;
+      background:radial-gradient(circle at 48% 28%, #eee 20%, #aaa); 
+      background: -webkit-radial-gradient(48% 28%,#eee 20%, #aaa);
+		}
+		
+		header {
+		  -webkit-perspective: 1500px;
+		  perspective: 1500px;
+		}
+		
+		header h1 {
+		  font-size: 6vw;
+		  line-height: 7vw;
+		  letter-spacing: 1vw;
+		  color: #fff;
+		  display:block;
+      position:absolute;
+      width:100vw;
+      top: calc( 50vh - 7vh );
+		  text-align: center;
+		  text-shadow: 0 1px 0 #cccccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbbbbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaaaaa, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.15);
+		}
+</style>
+
+</head>
+<body>
+<header>
+  <h1>php</h1>
+</header>
+<script>
+window.addEventListener ? window.addEventListener("mousemove", showMouseXY, false) : window.attachEvent && window.attachEvent("onmousemove", showMouseXY);
+
+function text3d(x, y) {
+  var colors3d = ["#cccccc", "#c9c9c9", "#bbbbbb", "#b9b9b9", "#aaaaaa", "#a9a9a9"];
+  var styleStore = "";
+  for (var i = 0; i < 6; i++) {
+    styleStore += (x * (i * .03)) + "px " + (y * (i * .03)) + "px 0 " + colors3d[i] + ",";
+  }
+  return styleStore.substr(0, styleStore.length - 1);
+}
+
+function shadow3d(x, y) {
+  var shadow = ["rgba(0,0,0,.1)", "rgba(0,0,0,.15)", "rgba(0,0,0,.2)", "rgba(0,0,0,.2)", "rgba(0,0,0,.25)", "rgba(0,0,0,.3)"];
+  var styleStore = "";
+  for (var i = 0; i < 6; i++) {
+    styleStore += (x * (i * .15)) + "px " + (y * (i * .15)) + "px " + (i * 4) + "px " + shadow[i] + ",";
+  }
+  return styleStore.substr(0, styleStore.length - 1);
+}
+
+function showMouseXY(event) {
+  var target = document.querySelector("header h1");
+  var body = document.querySelector("body");
+  var cX = -(window.innerWidth / 2 - event.clientX) / 10;
+  var cY = (window.innerHeight / 2 - event.clientY) / 10;
+  target.setAttribute("style", "text-shadow:" + text3d(-(cX), cY) + "," + shadow3d(-(cX), cY) + ";transform:rotateY(" + cX + "deg) rotateX(" + cY + "deg);");
+  var radX = (event.clientX > (window.innerWidth * .333333) ? (event.clientX < window.innerWidth * .666666 ? "center" : "right") : "left");
+  var radY = (event.clientY > (window.innerHeight * .333333) ? (event.clientY < window.innerHeight * .666666 ? "center" : "bottom") : "top");
+  console.log("x: " + cX);
+  console.log("y: " + cY);
+  console.log("x: " + radX);
+  console.log("y: " + radY);
+  
+  var bgX = -((event.clientX-window.innerWidth)/window.innerWidth)*100;
+  var bgY = -((event.clientY-window.innerHeight)/window.innerHeight)*100;
+  body.setAttribute("style","background: radial-gradient(circle at "+bgX+"% "+bgY+"%, #eee 20%, #aaa); background: -webkit-radial-gradient("+bgX+"% "+bgY+"%,#eee 20%, #aaa);")
+  console.log("background: radial-gradient(circle at "+bgX+"% "+bgY+"%, #eee 20%, #aaa; background: -webkit-radial-gradient("+bgX+"% "+bgY+"%,#eee 20%, #aaa);")
+
+}
+</script>
+</body>
+</html>

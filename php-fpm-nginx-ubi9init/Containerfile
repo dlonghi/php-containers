@@ -1,0 +1,83 @@
+FROM registry.access.redhat.com/ubi9-init
+
+ENV SMDEV_CONTAINER_OFF=1
+
+RUN dnf upgrade -y \
+ && dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm \
+ && dnf -y install https://dl.fedoraproject.org/pub/epel/epel-next-release-latest-9.noarch.rpm \
+ && dnf update -y \
+ && dnf install -y \
+  msmtp \
+ && curl -o /etc/yum.repos.d/nginx.repo https://raw.githubusercontent.com/dlonghi/php-containers/main/php-fpm-nginx-ubi9init/nginx/nginx.repo \
+ && dnf install -y nginx && systemctl enable nginx \
+ && curl -o /etc/nginx/nginx.conf https://raw.githubusercontent.com/dlonghi/php-containers/main/php-fpm-nginx-ubi9init/nginx/nginx.conf \
+ && openssl req -new -x509 -sha512 -nodes -newkey ec:<(openssl ecparam -name secp384r1) -subj "/C=BR/ST=RJ/L=Sao Paulo/CN=*.localhost/O=LocalOrg" -addext "subjectAltName = DNS:localhost, DNS:127.0.0.1" -keyout /etc/nginx/key.pem -out /etc/nginx/cert.pem -days 3650 \
+ && chmod 600 /etc/nginx/key.pem \
+ && chown nginx:nginx /etc/nginx/*.pem
+
+ && echo \
+ && dnf module reset -y php \
+ && dnf module disable -y php \
+ && dnf install -y https://rpms.remirepo.net/enterprise/remi-release-9.rpm \
+ && dnf module install -y php:remi-8.2 \
+ && dnf update -y && dnf install -y \
+  php-cli \
+  php-fpm \
+  php-soap \
+  php-mysqlnd \
+  php-pgsql \
+  php-zip \
+  php-gd \
+  php-mbstring \
+  php-curl \
+  php-xml \
+  php-soap \
+  php-bcmath \
+  php-pecl-memcached \
+  php-pecl-redis6 \
+  php-opcache \
+  php-pecl-zmq \
+ && dnf install -y https://download.oracle.com/otn_software/linux/instantclient/2112000/oracle-instantclient-basic-21.12.0.0.0-1.el8.x86_64.rpm \
+ && dnf install -y php-oci8 \
+ && dnf clean all \
+ && echo 'Configs' \
+ && ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime \
+ && mkdir /etc/systemd/journald.conf.d \
+ && curl -o /etc/systemd/journald.conf.d/90-custom.conf https://raw.githubusercontent.com/dlonghi/php-containers/main/php-fpm-nginx-ubi9init/custom-journald.conf \
+ && curl -o /etc/php.d/90-timezone.ini https://raw.githubusercontent.com/dlonghi/php-containers/main/php-fpm-nginx-ubi9init/php-fpm/timezone.ini \
+ && sed -i 's/user = apache/user = nginx/g' /etc/php-fpm.d/www.conf \
+ && sed -i 's/group = apache/group = nginx/g' /etc/php-fpm.d/www.conf \
+ && sed -i 's/listen.acl_users = apache,nginx/listen.acl_users = nginx/g' /etc/php-fpm.d/www.conf \
+ && sed -i 's/php_admin_value\[error_log\] = \/var\/log\/php\-fpm\/www\-error.log/php_admin_value[error_log] = \/dev\/console/g' /etc/php-fpm.d/www.conf \
+ && sed -i 's/slowlog = \/var\/log\/php-fpm\/www-slow\.log/slowlog = \/dev\/console/g' /etc/php-fpm.d/www.conf \
+ && systemctl enable php-fpm \
+ && echo \
+ && mkdir -p /app/public \
+ && curl -o /app/public/index.html https://raw.githubusercontent.com/dlonghi/php-containers/main/www/index.html \
+ && curl -o /app/public/favicon.ico https://raw.githubusercontent.com/dlonghi/php-containers/main/www/favicon.ico \
+ && curl -o /app/public/phpinfo.php https://raw.githubusercontent.com/dlonghi/php-containers/main/www/phpinfo.php
+
+
+RUN echo \
+ && update-crypto-policies --set DEFAULT:SHA1 \
+ && dnf install -y https://rpm.nodesource.com/pub_21.x/nodistro/repo/nodesource-release-nodistro-1.noarch.rpm \
+ && dnf install nodejs -y --setopt=nodesource-nodejs.module_hotfixes=1 \
+ && npm install --upgrade -g npm@latest \
+ && npm install --upgrade -g yarn@latest \
+ && cd /tmp \
+ && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+ && php composer-setup.php \
+ && php -r "unlink('composer-setup.php');" \
+ && mv composer.phar /usr/local/bin \
+ && dnf install -y php-pecl-xdebug3 \
+ && echo \
+ && mkdir -p /xdebug/log && mkdir -p /xdebug/output && mkdir -p /xdebug/trace && mkdir -p /xdebug/profiler \
+ && chmod -R 777 /xdebug \
+ && curl -o /etc/php.d/90-xdebug.ini https://raw.githubusercontent.com/dlonghi/php-containers/main/php-fpm-nginx-ubi9init/php-fpm/xdebug.ini \
+ && curl -o /etc/php.d/90-opcache.ini https://raw.githubusercontent.com/dlonghi/php-containers/main/php-fpm-nginx-ubi9init/php-fpm/opcache-devel.ini \
+ && curl -o /app/public/xdebuginfo.php https://raw.githubusercontent.com/dlonghi/php-containers/main/www/xdebuginfo.php
+
+WORKDIR /app
+
+EXPOSE 80
+EXPOSE 443
