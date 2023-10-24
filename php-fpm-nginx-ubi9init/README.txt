@@ -1,3 +1,5 @@
+cd /opt/containers/php-containers/php-fpm-nginx-ubi9init
+
 
 cd /mnt/c/opt/containers/php-containers/php-fpm-nginx-ubi9init
 
