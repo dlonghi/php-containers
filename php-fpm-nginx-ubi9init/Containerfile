@@ -45,6 +45,7 @@ RUN dnf upgrade -y \
  && mkdir /etc/systemd/journald.conf.d \
  && curl -o /etc/systemd/journald.conf.d/90-custom.conf https://raw.githubusercontent.com/dlonghi/php-containers/main/php-fpm-nginx-ubi9init/custom-journald.conf \
  && curl -o /etc/php.d/90-timezone.ini https://raw.githubusercontent.com/dlonghi/php-containers/main/php-fpm-nginx-ubi9init/php-fpm/timezone.ini \
+ && sed -i 's/;date.timezone =/date.timezone = "America/Sao_Paulo"/g' /etc/php.d/php.ini \
  && sed -i 's/user = apache/user = nginx/g' /etc/php-fpm.d/www.conf \
  && sed -i 's/group = apache/group = nginx/g' /etc/php-fpm.d/www.conf \
  && sed -i 's/listen.acl_users = apache,nginx/listen.acl_users = nginx/g' /etc/php-fpm.d/www.conf \
