@@ -11,10 +11,10 @@ RUN dnf upgrade -y \
  && curl -o /etc/yum.repos.d/nginx.repo https://raw.githubusercontent.com/dlonghi/php-containers/main/php-fpm-nginx-ubi9init/nginx/nginx.repo \
  && dnf install -y nginx && systemctl enable nginx \
  && curl -o /etc/nginx/nginx.conf https://raw.githubusercontent.com/dlonghi/php-containers/main/php-fpm-nginx-ubi9init/nginx/nginx.conf \
- && openssl req -new -x509 -sha512 -nodes -newkey ec:<(openssl ecparam -name secp384r1) -subj "/C=BR/ST=RJ/L=Sao Paulo/CN=*.localhost/O=LocalOrg" -addext "subjectAltName = DNS:localhost, DNS:127.0.0.1" -keyout /etc/nginx/key.pem -out /etc/nginx/cert.pem -days 3650 \
+ && cd /etc/nginx \
+ && openssl req -new -x509 -sha512 -nodes -newkey ec:<(openssl ecparam -name secp384r1) -subj "/C=BR/ST=RJ/L=Sao Paulo/CN=*.localhost/O=LocalOrg" -addext "subjectAltName = DNS:localhost, DNS:127.0.0.1" -keyout key.pem -out cert.pem -days 3650 \
  && chmod 600 /etc/nginx/key.pem \
- && chown nginx:nginx /etc/nginx/*.pem
-
+ && chown nginx:nginx /etc/nginx/*.pem \
  && echo \
  && dnf module reset -y php \
  && dnf module disable -y php \
