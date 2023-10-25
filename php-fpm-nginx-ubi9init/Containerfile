@@ -50,13 +50,14 @@ RUN dnf upgrade -y \
  && sed -i 's/listen.acl_users = apache,nginx/listen.acl_users = nginx/g' /etc/php-fpm.d/www.conf \
  && sed -i 's/php_admin_value\[error_log\] = \/var\/log\/php\-fpm\/www\-error.log/php_admin_value[error_log] = \/dev\/console/g' /etc/php-fpm.d/www.conf \
  && sed -i 's/slowlog = \/var\/log\/php-fpm\/www-slow\.log/slowlog = \/dev\/console/g' /etc/php-fpm.d/www.conf \
+ && curl -o /etc/php.d/90-opcache.ini https://raw.githubusercontent.com/dlonghi/php-containers/main/php-fpm-nginx-ubi9init/php-fpm/opcache-prod.ini \
  && systemctl enable php-fpm \
  && echo \
  && mkdir -p /app/public \
  && curl -o /app/public/index.html https://raw.githubusercontent.com/dlonghi/php-containers/main/www/index.html \
  && curl -o /app/public/favicon.ico https://raw.githubusercontent.com/dlonghi/php-containers/main/www/favicon.ico \
- && curl -o /app/public/phpinfo.php https://raw.githubusercontent.com/dlonghi/php-containers/main/www/phpinfo.php
-
+ && curl -o /app/public/phpinfo.php https://raw.githubusercontent.com/dlonghi/php-containers/main/www/phpinfo.php \
+ && curl -o /app/public/adminer.php https://raw.githubusercontent.com/dlonghi/php-containers/main/www/adminer-4.8.1-mysql-en.php
 
 RUN echo \
  && update-crypto-policies --set DEFAULT:SHA1 \
@@ -69,13 +70,14 @@ RUN echo \
  && php composer-setup.php \
  && php -r "unlink('composer-setup.php');" \
  && mv composer.phar /usr/local/bin \
- && dnf install -y php-pecl-xdebug3 \
  && echo \
+ && dnf install -y php-pecl-xdebug3 \
  && mkdir -p /xdebug/log && mkdir -p /xdebug/output && mkdir -p /xdebug/trace && mkdir -p /xdebug/profiler \
  && chmod -R 777 /xdebug \
  && curl -o /etc/php.d/90-xdebug.ini https://raw.githubusercontent.com/dlonghi/php-containers/main/php-fpm-nginx-ubi9init/php-fpm/xdebug.ini \
  && curl -o /etc/php.d/90-opcache.ini https://raw.githubusercontent.com/dlonghi/php-containers/main/php-fpm-nginx-ubi9init/php-fpm/opcache-devel.ini \
- && curl -o /app/public/xdebuginfo.php https://raw.githubusercontent.com/dlonghi/php-containers/main/www/xdebuginfo.php
+ && curl -o /app/public/xdebuginfo.php https://raw.githubusercontent.com/dlonghi/php-containers/main/www/xdebuginfo.php \
+ && dnf clean all
 
 WORKDIR /app
 
