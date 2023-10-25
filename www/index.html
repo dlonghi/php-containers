@@ -1,87 +1,249 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="pt-br" >
 <head>
   <meta charset="UTF-8">
-  <title>php</title>
+  <title>index.html</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anton">
+
 <style>
-@import url(https://fonts.googleapis.com/css?family=Roboto);
-		* {
-		  margin: 0;
-		  padding: 0
-		}
-		html { box-sizing: border-box; }
-		body {
-		  font-family: "Roboto", sans-serif;
-      min-height:100vh;
-      background:radial-gradient(circle at 48% 28%, #eee 20%, #aaa); 
-      background: -webkit-radial-gradient(48% 28%,#eee 20%, #aaa);
-		}
-		
-		header {
-		  -webkit-perspective: 1500px;
-		  perspective: 1500px;
-		}
-		
-		header h1 {
-		  font-size: 6vw;
-		  line-height: 7vw;
-		  letter-spacing: 1vw;
-		  color: #fff;
-		  display:block;
-      position:absolute;
-      width:100vw;
-      top: calc( 50vh - 7vh );
-		  text-align: center;
-		  text-shadow: 0 1px 0 #cccccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbbbbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaaaaa, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.15);
-		}
+body {
+  background: #0a1428;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 500px;
+}
+
+div {
+  will-change: transform;
+}
+
+#ui {
+  transform-style: preserve-3d;
+}
+#ui .text {
+  position: absolute;
+  font-size: 15rem;
+  color: #fff;
+  line-height: 15rem;
+  font-family: "Anton", sans-serif;
+  padding: 20px 0;
+  mix-blend-mode: screen;
+  transform-style: preserve-3d;
+}
+#ui .text:nth-child(1) {
+  -webkit-clip-path: polygon(-30% 0, -20% 0, 20% 100%, 0% 100%);
+          clip-path: polygon(-30% 0, -20% 0, 20% 100%, 0% 100%);
+  -webkit-animation: wave 2000ms -10000ms ease-in-out infinite alternate;
+          animation: wave 2000ms -10000ms ease-in-out infinite alternate;
+}
+#ui .text:nth-child(2) {
+  -webkit-clip-path: polygon(-25% 0, -15% 0, 25% 100%, 5% 100%);
+          clip-path: polygon(-25% 0, -15% 0, 25% 100%, 5% 100%);
+  -webkit-animation: wave 2000ms -9800ms ease-in-out infinite alternate;
+          animation: wave 2000ms -9800ms ease-in-out infinite alternate;
+}
+#ui .text:nth-child(3) {
+  -webkit-clip-path: polygon(-20% 0, -10% 0, 30% 100%, 10% 100%);
+          clip-path: polygon(-20% 0, -10% 0, 30% 100%, 10% 100%);
+  -webkit-animation: wave 2000ms -9600ms ease-in-out infinite alternate;
+          animation: wave 2000ms -9600ms ease-in-out infinite alternate;
+}
+#ui .text:nth-child(4) {
+  -webkit-clip-path: polygon(-15% 0, -5% 0, 35% 100%, 15% 100%);
+          clip-path: polygon(-15% 0, -5% 0, 35% 100%, 15% 100%);
+  -webkit-animation: wave 2000ms -9400ms ease-in-out infinite alternate;
+          animation: wave 2000ms -9400ms ease-in-out infinite alternate;
+}
+#ui .text:nth-child(5) {
+  -webkit-clip-path: polygon(-10% 0, 0% 0, 40% 100%, 20% 100%);
+          clip-path: polygon(-10% 0, 0% 0, 40% 100%, 20% 100%);
+  -webkit-animation: wave 2000ms -9200ms ease-in-out infinite alternate;
+          animation: wave 2000ms -9200ms ease-in-out infinite alternate;
+}
+#ui .text:nth-child(6) {
+  -webkit-clip-path: polygon(-5% 0, 5% 0, 45% 100%, 25% 100%);
+          clip-path: polygon(-5% 0, 5% 0, 45% 100%, 25% 100%);
+  -webkit-animation: wave 2000ms -9000ms ease-in-out infinite alternate;
+          animation: wave 2000ms -9000ms ease-in-out infinite alternate;
+}
+#ui .text:nth-child(7) {
+  -webkit-clip-path: polygon(0% 0, 10% 0, 50% 100%, 30% 100%);
+          clip-path: polygon(0% 0, 10% 0, 50% 100%, 30% 100%);
+  -webkit-animation: wave 2000ms -8800ms ease-in-out infinite alternate;
+          animation: wave 2000ms -8800ms ease-in-out infinite alternate;
+}
+#ui .text:nth-child(8) {
+  -webkit-clip-path: polygon(5% 0, 15% 0, 55% 100%, 35% 100%);
+          clip-path: polygon(5% 0, 15% 0, 55% 100%, 35% 100%);
+  -webkit-animation: wave 2000ms -8600ms ease-in-out infinite alternate;
+          animation: wave 2000ms -8600ms ease-in-out infinite alternate;
+}
+#ui .text:nth-child(9) {
+  -webkit-clip-path: polygon(10% 0, 20% 0, 60% 100%, 40% 100%);
+          clip-path: polygon(10% 0, 20% 0, 60% 100%, 40% 100%);
+  -webkit-animation: wave 2000ms -8400ms ease-in-out infinite alternate;
+          animation: wave 2000ms -8400ms ease-in-out infinite alternate;
+}
+#ui .text:nth-child(10) {
+  -webkit-clip-path: polygon(15% 0, 25% 0, 65% 100%, 45% 100%);
+          clip-path: polygon(15% 0, 25% 0, 65% 100%, 45% 100%);
+  -webkit-animation: wave 2000ms -8200ms ease-in-out infinite alternate;
+          animation: wave 2000ms -8200ms ease-in-out infinite alternate;
+}
+#ui .text:nth-child(11) {
+  -webkit-clip-path: polygon(20% 0, 30% 0, 70% 100%, 50% 100%);
+          clip-path: polygon(20% 0, 30% 0, 70% 100%, 50% 100%);
+  -webkit-animation: wave 2000ms -8000ms ease-in-out infinite alternate;
+          animation: wave 2000ms -8000ms ease-in-out infinite alternate;
+}
+#ui .text:nth-child(12) {
+  -webkit-clip-path: polygon(25% 0, 35% 0, 75% 100%, 55% 100%);
+          clip-path: polygon(25% 0, 35% 0, 75% 100%, 55% 100%);
+  -webkit-animation: wave 2000ms -7800ms ease-in-out infinite alternate;
+          animation: wave 2000ms -7800ms ease-in-out infinite alternate;
+}
+#ui .text:nth-child(13) {
+  -webkit-clip-path: polygon(30% 0, 40% 0, 80% 100%, 60% 100%);
+          clip-path: polygon(30% 0, 40% 0, 80% 100%, 60% 100%);
+  -webkit-animation: wave 2000ms -7600ms ease-in-out infinite alternate;
+          animation: wave 2000ms -7600ms ease-in-out infinite alternate;
+}
+#ui .text:nth-child(14) {
+  -webkit-clip-path: polygon(35% 0, 45% 0, 85% 100%, 65% 100%);
+          clip-path: polygon(35% 0, 45% 0, 85% 100%, 65% 100%);
+  -webkit-animation: wave 2000ms -7400ms ease-in-out infinite alternate;
+          animation: wave 2000ms -7400ms ease-in-out infinite alternate;
+}
+#ui .text:nth-child(15) {
+  -webkit-clip-path: polygon(40% 0, 50% 0, 90% 100%, 70% 100%);
+          clip-path: polygon(40% 0, 50% 0, 90% 100%, 70% 100%);
+  -webkit-animation: wave 2000ms -7200ms ease-in-out infinite alternate;
+          animation: wave 2000ms -7200ms ease-in-out infinite alternate;
+}
+#ui .text:nth-child(16) {
+  -webkit-clip-path: polygon(45% 0, 55% 0, 95% 100%, 75% 100%);
+          clip-path: polygon(45% 0, 55% 0, 95% 100%, 75% 100%);
+  -webkit-animation: wave 2000ms -7000ms ease-in-out infinite alternate;
+          animation: wave 2000ms -7000ms ease-in-out infinite alternate;
+}
+#ui .text:nth-child(17) {
+  -webkit-clip-path: polygon(50% 0, 60% 0, 100% 100%, 80% 100%);
+          clip-path: polygon(50% 0, 60% 0, 100% 100%, 80% 100%);
+  -webkit-animation: wave 2000ms -6800ms ease-in-out infinite alternate;
+          animation: wave 2000ms -6800ms ease-in-out infinite alternate;
+}
+#ui .text:nth-child(18) {
+  -webkit-clip-path: polygon(55% 0, 65% 0, 105% 100%, 85% 100%);
+          clip-path: polygon(55% 0, 65% 0, 105% 100%, 85% 100%);
+  -webkit-animation: wave 2000ms -6600ms ease-in-out infinite alternate;
+          animation: wave 2000ms -6600ms ease-in-out infinite alternate;
+}
+#ui .text:nth-child(19) {
+  -webkit-clip-path: polygon(60% 0, 70% 0, 110% 100%, 90% 100%);
+          clip-path: polygon(60% 0, 70% 0, 110% 100%, 90% 100%);
+  -webkit-animation: wave 2000ms -6400ms ease-in-out infinite alternate;
+          animation: wave 2000ms -6400ms ease-in-out infinite alternate;
+}
+#ui .text:nth-child(20) {
+  -webkit-clip-path: polygon(65% 0, 75% 0, 115% 100%, 95% 100%);
+          clip-path: polygon(65% 0, 75% 0, 115% 100%, 95% 100%);
+  -webkit-animation: wave 2000ms -6200ms ease-in-out infinite alternate;
+          animation: wave 2000ms -6200ms ease-in-out infinite alternate;
+}
+#ui .text:nth-child(21) {
+  -webkit-clip-path: polygon(70% 0, 80% 0, 120% 100%, 100% 100%);
+          clip-path: polygon(70% 0, 80% 0, 120% 100%, 100% 100%);
+  -webkit-animation: wave 2000ms -6000ms ease-in-out infinite alternate;
+          animation: wave 2000ms -6000ms ease-in-out infinite alternate;
+}
+#ui .text:nth-child(22) {
+  -webkit-clip-path: polygon(75% 0, 85% 0, 125% 100%, 105% 100%);
+          clip-path: polygon(75% 0, 85% 0, 125% 100%, 105% 100%);
+  -webkit-animation: wave 2000ms -5800ms ease-in-out infinite alternate;
+          animation: wave 2000ms -5800ms ease-in-out infinite alternate;
+}
+#ui .text:nth-child(23) {
+  -webkit-clip-path: polygon(80% 0, 90% 0, 130% 100%, 110% 100%);
+          clip-path: polygon(80% 0, 90% 0, 130% 100%, 110% 100%);
+  -webkit-animation: wave 2000ms -5600ms ease-in-out infinite alternate;
+          animation: wave 2000ms -5600ms ease-in-out infinite alternate;
+}
+#ui .text:nth-child(24) {
+  -webkit-clip-path: polygon(85% 0, 95% 0, 135% 100%, 115% 100%);
+          clip-path: polygon(85% 0, 95% 0, 135% 100%, 115% 100%);
+  -webkit-animation: wave 2000ms -5400ms ease-in-out infinite alternate;
+          animation: wave 2000ms -5400ms ease-in-out infinite alternate;
+}
+#ui .text:nth-child(25) {
+  -webkit-clip-path: polygon(90% 0, 100% 0, 140% 100%, 120% 100%);
+          clip-path: polygon(90% 0, 100% 0, 140% 100%, 120% 100%);
+  -webkit-animation: wave 2000ms -5200ms ease-in-out infinite alternate;
+          animation: wave 2000ms -5200ms ease-in-out infinite alternate;
+}
+#ui .text:nth-child(26) {
+  -webkit-clip-path: polygon(95% 0, 105% 0, 145% 100%, 125% 100%);
+          clip-path: polygon(95% 0, 105% 0, 145% 100%, 125% 100%);
+  -webkit-animation: wave 2000ms -5000ms ease-in-out infinite alternate;
+          animation: wave 2000ms -5000ms ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes wave {
+  0% {
+    transform: translate(-50%, -50%) scale(0.9) rotateX(20deg) rotateY(20deg) rotateZ(0deg);
+    color: #001e64;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.1) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    color: #32e6ff;
+  }
+}
+
+@keyframes wave {
+  0% {
+    transform: translate(-50%, -50%) scale(0.9) rotateX(20deg) rotateY(20deg) rotateZ(0deg);
+    color: #001e64;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.1) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    color: #32e6ff;
+  }
+}
 </style>
 
 </head>
 <body>
-<header>
-  <h1>php</h1>
-</header>
-<script>
-window.addEventListener ? window.addEventListener("mousemove", showMouseXY, false) : window.attachEvent && window.attachEvent("onmousemove", showMouseXY);
-
-function text3d(x, y) {
-  var colors3d = ["#cccccc", "#c9c9c9", "#bbbbbb", "#b9b9b9", "#aaaaaa", "#a9a9a9"];
-  var styleStore = "";
-  for (var i = 0; i < 6; i++) {
-    styleStore += (x * (i * .03)) + "px " + (y * (i * .03)) + "px 0 " + colors3d[i] + ",";
-  }
-  return styleStore.substr(0, styleStore.length - 1);
-}
-
-function shadow3d(x, y) {
-  var shadow = ["rgba(0,0,0,.1)", "rgba(0,0,0,.15)", "rgba(0,0,0,.2)", "rgba(0,0,0,.2)", "rgba(0,0,0,.25)", "rgba(0,0,0,.3)"];
-  var styleStore = "";
-  for (var i = 0; i < 6; i++) {
-    styleStore += (x * (i * .15)) + "px " + (y * (i * .15)) + "px " + (i * 4) + "px " + shadow[i] + ",";
-  }
-  return styleStore.substr(0, styleStore.length - 1);
-}
-
-function showMouseXY(event) {
-  var target = document.querySelector("header h1");
-  var body = document.querySelector("body");
-  var cX = -(window.innerWidth / 2 - event.clientX) / 10;
-  var cY = (window.innerHeight / 2 - event.clientY) / 10;
-  target.setAttribute("style", "text-shadow:" + text3d(-(cX), cY) + "," + shadow3d(-(cX), cY) + ";transform:rotateY(" + cX + "deg) rotateX(" + cY + "deg);");
-  var radX = (event.clientX > (window.innerWidth * .333333) ? (event.clientX < window.innerWidth * .666666 ? "center" : "right") : "left");
-  var radY = (event.clientY > (window.innerHeight * .333333) ? (event.clientY < window.innerHeight * .666666 ? "center" : "bottom") : "top");
-  console.log("x: " + cX);
-  console.log("y: " + cY);
-  console.log("x: " + radX);
-  console.log("y: " + radY);
-  
-  var bgX = -((event.clientX-window.innerWidth)/window.innerWidth)*100;
-  var bgY = -((event.clientY-window.innerHeight)/window.innerHeight)*100;
-  body.setAttribute("style","background: radial-gradient(circle at "+bgX+"% "+bgY+"%, #eee 20%, #aaa); background: -webkit-radial-gradient("+bgX+"% "+bgY+"%,#eee 20%, #aaa);")
-  console.log("background: radial-gradient(circle at "+bgX+"% "+bgY+"%, #eee 20%, #aaa; background: -webkit-radial-gradient("+bgX+"% "+bgY+"%,#eee 20%, #aaa);")
-
-}
-</script>
+  <div id="ui">
+    <div class="text">index.html</div>
+    <div class="text">index.html</div>
+    <div class="text">index.html</div>
+    <div class="text">index.html</div>
+    <div class="text">index.html</div>
+    <div class="text">index.html</div>
+    <div class="text">index.html</div>
+    <div class="text">index.html</div>
+    <div class="text">index.html</div>
+    <div class="text">index.html</div>
+    <div class="text">index.html</div>
+    <div class="text">index.html</div>
+    <div class="text">index.html</div>
+    <div class="text">index.html</div>
+    <div class="text">index.html</div>
+    <div class="text">index.html</div>
+    <div class="text">index.html</div>
+    <div class="text">index.html</div>
+    <div class="text">index.html</div>
+    <div class="text">index.html</div>
+    <div class="text">index.html</div>
+    <div class="text">index.html</div>
+    <div class="text">index.html</div>
+    <div class="text">index.html</div>
+    <div class="text">index.html</div>
+    <div class="text">index.html</div>
+  </div>
 </body>
 </html>

@@ -12,7 +12,7 @@ RUN dnf upgrade -y \
  && dnf install -y nginx && systemctl enable nginx \
  && curl -o /etc/nginx/nginx.conf https://raw.githubusercontent.com/dlonghi/php-containers/main/php-fpm-nginx-ubi9init/nginx/nginx.conf \
  && cd /etc/nginx \
- && openssl req -new -x509 -sha512 -nodes -newkey ec:<(openssl ecparam -name secp384r1) -subj "/C=BR/ST=RJ/L=Sao Paulo/CN=*.localhost/O=LocalOrg" -addext "subjectAltName = DNS:localhost, DNS:127.0.0.1" -keyout key.pem -out cert.pem -days 3650 \
+ && openssl req -new -x509 -sha512 -nodes -newkey ec:<(openssl ecparam -name secp384r1) -subj "/C=BR/ST=RJ/L=Rio de Janeiro/CN=*.localhost/O=SnakeOil" -addext "subjectAltName = DNS:localhost, DNS:127.0.0.1" -keyout key.pem -out cert.pem -days 3650 \
  && chmod 600 /etc/nginx/key.pem \
  && chown nginx:nginx /etc/nginx/*.pem \
  && echo \
